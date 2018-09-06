@@ -1,7 +1,7 @@
 module Main exposing (Model, Msg(..), Store, init, main, update, view)
 
 import Browser
-import Html exposing (Html, div, h1, img, text, input)
+import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
@@ -23,7 +23,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model "" (Store "Rose Street" "54") , Cmd.none )
+    ( Model "" (Store "Rose Street" "54"), Cmd.none )
 
 
 
@@ -45,10 +45,10 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ],
-         [input [placeholder "Enter Search Query" , value model.query] ]
+    div [ class "searchapp" ]
+        [ h3 [] [ text "Enter Search query" ]
+        ,  input [ placeholder "Enter Search query", value model.query ] []
+
         ]
 
 
