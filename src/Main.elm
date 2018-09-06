@@ -1,20 +1,29 @@
-module Main exposing (..)
+module Main exposing (Model, Msg(..), Store, init, main, update, view)
 
 import Browser
-import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
+import Html exposing (Html, div, h1, img, text, input)
+import Html.Attributes exposing (..)
+
 
 
 ---- MODEL ----
 
 
+type alias Store =
+    { location : String
+    , id : String
+    }
+
+
 type alias Model =
-    {}
+    { query : String
+    , activeStore : Store
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
+    ( Model "" (Store "Rose Street" "54") , Cmd.none )
 
 
 
@@ -38,7 +47,8 @@ view : Model -> Html Msg
 view model =
     div []
         [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ]
+        , h1 [] [ text "Your Elm App is working!" ],
+         [input [placeholder "Enter Search Query" , value model.query] ]
         ]
 
 
