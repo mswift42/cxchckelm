@@ -37,7 +37,13 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        SwitchActiveStore RoseStreet ->
+            ({model | activeStore = Store "Rose Street" "54"}, Cmd.none)
+        SwitchActiveStore CameronToll ->
+            ({ model | activeStore = Store "Cameron Toll" "3017"}, Cmd.none)
+        SwitchActiveStore Leith ->
+            ({ model | activeStore = Store "Leith" "3115"}, Cmd.none)
 
 
 
@@ -49,13 +55,15 @@ view model =
     div [ class "searchapp" ]
         [ h3 [] [ text "Enter Search query" ]
         ,  input [ placeholder "Enter Search query", value model.query ] []
-        , div [] [radio (SwitchTo model.activeStore.location) model.activeStore.location]
+        , div [] [radio (SwitchActiveStore RoseStreet) "Rose Street"]
+        , div [] [radio (SwitchActiveStore CameronToll) "Cameron Toll"]
+        , div [] [radio (SwitchActiveStore Leith) "Leith"]
         ]
 
 radio : msg -> String -> Html msg
 radio msg name =
     label []
-        [ input [type_ "radio" onClick msg ] []
+        [ input [type_ "radio", onClick msg ] []
         , text name
         ]
 
