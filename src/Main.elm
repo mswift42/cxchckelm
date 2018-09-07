@@ -32,7 +32,7 @@ type ActiveStore = RoseStreet | CameronToll | Leith
 
 
 type Msg
-    = SwitchActiveStore ActiveStore
+    = SwitchActiveStore ActiveStore | SearchProduct String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -44,6 +44,8 @@ update msg model =
             ({ model | activeStore = Store "Cameron Toll" "3017"}, Cmd.none)
         SwitchActiveStore Leith ->
             ({ model | activeStore = Store "Leith" "3115"}, Cmd.none)
+        SearchProduct query ->
+            ({model | query = query}, Cmd.none)
 
 
 
@@ -55,6 +57,7 @@ view model =
     div [ class "searchapp" ]
         [ h3 [] [ text "Enter Search query" ]
         ,  input [ placeholder "Enter Search query", value model.query ] []
+        , button   [onClick (SearchProduct model.query)] [ text "Search" ]
         , div [] [radio (SwitchActiveStore RoseStreet) "Rose Street"]
         , div [] [radio (SwitchActiveStore CameronToll) "Cameron Toll"]
         , div [] [radio (SwitchActiveStore Leith) "Leith"]
