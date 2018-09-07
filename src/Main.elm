@@ -26,13 +26,13 @@ init : ( Model, Cmd Msg )
 init =
     ( Model "" (Store "Rose Street" "54"), Cmd.none )
 
-
+type ActiveStore = RoseStreet | CameronToll | Leith
 
 ---- UPDATE ----
 
 
 type Msg
-    = NoOp
+    = SwitchActiveStore ActiveStore
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -49,6 +49,7 @@ view model =
     div [ class "searchapp" ]
         [ h3 [] [ text "Enter Search query" ]
         ,  input [ placeholder "Enter Search query", value model.query ] []
+        , div [] [radio (SwitchTo model.activeStore.location) model.activeStore.location]
         ]
 
 radio : msg -> String -> Html msg
