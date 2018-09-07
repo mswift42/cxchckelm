@@ -3,6 +3,7 @@ module Main exposing (Model, Msg(..), Store, init, main, update, view)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 
 
 
@@ -48,10 +49,14 @@ view model =
     div [ class "searchapp" ]
         [ h3 [] [ text "Enter Search query" ]
         ,  input [ placeholder "Enter Search query", value model.query ] []
-
         ]
 
-
+radio : msg -> String -> Html msg
+radio msg name =
+    label []
+        [ input [type_ "radio" onClick msg ] []
+        , text name
+        ]
 
 ---- PROGRAM ----
 
